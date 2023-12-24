@@ -1,4 +1,4 @@
-function getRandomSearch() {
+export function getRandomSearch(): string {
     // A list of all characters that can be chosen.
     const characters = 'abcdefghijklmnopqrstuvwxyz';
     
