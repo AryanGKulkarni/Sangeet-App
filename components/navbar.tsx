@@ -37,11 +37,6 @@ export const Navbar = () => {
 				inputWrapper: "bg-default-100",
 				input: "text-sm",
 			}}
-			endContent={
-				<Kbd className="hidden lg:inline-block" keys={["command"]}>
-					K
-				</Kbd>
-			}
 			labelPlacement="outside"
 			placeholder="Search..."
 			startContent={
@@ -56,8 +51,7 @@ export const Navbar = () => {
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
 				<NavbarBrand className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
-						<Logo />
-						<p className="font-bold text-inherit">ACME</p>
+						<p className="font-bold text-inherit">SANGEET</p>
 					</NextLink>
 				</NavbarBrand>
 				<div className="hidden lg:flex gap-4 justify-start ml-2">
