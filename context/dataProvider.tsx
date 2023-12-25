@@ -100,6 +100,69 @@ export interface Track {
   type: string;
   uri: string;
 }
+// Inside your context file (e.g., dataProvider.ts)
+
+export interface Playlist {
+  collaborative: boolean;
+  description: string;
+  external_urls: {
+    spotify: string;
+  };
+  followers: {
+    href: string | null;
+    total: number;
+  };
+  href: string;
+  id: string;
+  images: {
+    height: number;
+    url: string;
+    width: number;
+  }[];
+  name: string;
+  owner: {
+    display_name: string;
+    external_urls: {
+      spotify: string;
+    };
+    href: string;
+    id: string;
+    type: string;
+    uri: string;
+  };
+  primary_color: string | null;
+  public: boolean;
+  snapshot_id: string;
+  tracks: {
+    href: string;
+    items: {
+      added_at: string;
+      added_by: {
+        external_urls: {
+          spotify: string;
+        };
+        href: string;
+        id: string;
+        type: string;
+        uri: string;
+      };
+      is_local: boolean;
+      primary_color: string | null;
+      track: Track;
+      video_thumbnail: {
+        url: string | null;
+      };
+    }[];
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
+  };
+  type: string;
+  uri: string;
+}
+
 
 // Define the context type
 interface DataArrays {
@@ -109,6 +172,8 @@ interface DataArrays {
     setAlbums: React.Dispatch<React.SetStateAction<Album[]>>;
     tracks: Track[];
     setTracks: React.Dispatch<React.SetStateAction<Track[]>>;
+    playlists: Playlist[];
+    setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
 // Add other arrays and setters as needed
 }
 
@@ -119,8 +184,9 @@ const DataContext = createContext<DataArrays>({
     albums: [],
     setAlbums: () => {}, // Initialize with empty function
     tracks: [],
-    setTracks: () => {}, // Initialize with empty function
-    // Initialize other arrays and setters
+    setTracks: () => {}, 
+    playlists: [],
+    setPlaylists: () => {}, 
 });
 
 // Create a context provider component
@@ -128,10 +194,11 @@ export const DataProvider: React.FC<DataProviderProps>= ({ children }) => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
   // Initialize other arrays as needed
 
   return (
-    <DataContext.Provider value={{ artists, albums, tracks, setArtists, setAlbums, setTracks }}>
+    <DataContext.Provider value={{ artists, albums, tracks, playlists, setArtists, setAlbums, setTracks, setPlaylists }}>
       {children}
     </DataContext.Provider>
   );

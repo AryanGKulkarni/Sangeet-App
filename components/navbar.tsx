@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useEffect, useCallback } from 'react';
-import { Artist, Album, Track } from '@/context/dataProvider'
+import { Artist, Album, Track, Playlist } from '@/context/dataProvider'
 import { link as linkStyles } from "@nextui-org/theme";
 import { secretKey } from '@/secret';
 import { siteConfig } from "@/config/site";
@@ -35,7 +35,7 @@ export const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
-	const { artists, setArtists,tracks, setTracks, albums, setAlbums} = useData();
+	const { artists, setArtists,tracks, setTracks, albums, setAlbums, playlists, setPlaylists} = useData();
 	const accessToken: string | undefined = secretKey.AccessToken;;
 
 	const getType = useCallback(async (type: string|null) => {
@@ -60,6 +60,9 @@ export const Navbar = () => {
 		  const appendAlbums = (json: { albums: { items: Album[] } }) => {
 			setAlbums(prevAlbums => [...prevAlbums, ...json.albums.items]);
 		  };		  
+		  const appendPlaylists = (json: { playlists: { items: Playlist[] } }) => {
+			setPlaylists(prevPlaylists => [...prevPlaylists, ...json.playlists.items]);
+		  };		  
 		  if(type=="artist"){
 			appendArtists(json);
 		  }
@@ -69,10 +72,13 @@ export const Navbar = () => {
 		  else if(type=="album"){
 			appendAlbums(json);
 		  }
+		  else if(type=="playlist"){
+			appendPlaylists(json);
+		  }
 		} catch (error) {
 		  console.error("Error fetching data:", error);
 		}
-	  }, [accessToken,setArtists,searchQuery,setTracks,setAlbums]);
+	  }, [accessToken,setArtists,searchQuery,setTracks,setAlbums,setPlaylists]);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 	// Update searchQuery state with the input value
@@ -84,6 +90,9 @@ export const Navbar = () => {
 		}
 		else if(localStorage.getItem('type')=="album"){
 			localStorage.setItem('album_search',"true");
+		}
+		else if(localStorage.getItem('type')=="playlist"){
+			localStorage.setItem('playlist_search',"true");
 		}
 		setSearchQuery(event.target.value);
 	};
@@ -97,6 +106,9 @@ export const Navbar = () => {
 	const clearAlbums = () => {			
 		setAlbums([]);
 	};
+	const clearPlaylists = () => {			
+		setPlaylists([]);
+	};
 
 	const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {		
 		
@@ -108,6 +120,9 @@ export const Navbar = () => {
 		}
 		else if(localStorage.getItem('type')=="album"){
 			clearAlbums();
+		}
+		else if(localStorage.getItem('type')=="playlist"){
+			clearPlaylists();
 		}
 		event.preventDefault(); // Prevent form submission (if applicable)
 		await getType(localStorage.getItem('type')); // Trigger API call when the user submits the search query
