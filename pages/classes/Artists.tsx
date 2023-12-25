@@ -5,6 +5,7 @@ import { Navbar } from '@/components/navbar';
 import dotenv from 'dotenv'; 
 dotenv.config(); 
 import { formatNumber } from '@/numberFormatter';
+import { useData } from '@/context/dataProvider';
 
 
 interface ACardProps {
@@ -42,31 +43,10 @@ const ACard: React.FC<ACardProps> = (props)=>{
     )
 }
 
-interface Artist {
-  external_urls: {
-    spotify: string;
-  };
-  followers: {
-    href: string | null;
-    total: number;
-  };
-  genres: string[];
-  href: string;
-  id: string;
-  images: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
-  name: string;
-  popularity: number;
-  type: string;
-  uri: string;
-}
 
 const Artists = () => {
-  const [artists, setArtists] = useState<Artist[]>([]);
-  const accessToken: string | undefined = "BQA9vVLReEMV5n0OE9KRNX08ZH7KLMcMlYZTbJzzxzfGMHyxvH4RJC1AEaFvJ9ihHCPEbJ2H35QxJt5tMAbxHYXevrgWXiH65PGMJAg2MhooOFWqvR4";
+  const { artists, setArtists} = useData();
+  const accessToken: string | undefined = "BQDG8Fpx_rc8yzHF-h-Ra0PqA4sAQpg6VQEb6YNhcrfdnKIJSm028cZMCjUgFyUXD6DWv_2LkPH6QS7zPKWN8txWUwvr7p1d1T2L4IyzR4FdDtsyGL0";
 
   const getArtists = useCallback(async (id: string) => {
     try {
@@ -86,18 +66,23 @@ const Artists = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }, [accessToken]);
+  }, [accessToken,setArtists]);
 
   useEffect(() => {
-    getArtists("1vCWHaC5f2uS3yhpwWbIA6");
-    getArtists("04gDigrS5kc9YWfZHwBETP");
-    getArtists("6VuMaDnrHyPL1p4EHjYLi7");
-    getArtists("23fqKkggKUBHNkbKtXEls4");
-    getArtists("1uNFoZAHBGtllmzznpCI3s");
-    getArtists("1vCWHaC5f2uS3yhpwWbIA6");
-    getArtists("2CIMQHirSU0MQqyYHq0eOx");
+    localStorage.setItem('type',"artist");
+    localStorage.setItem('search',"false");
+    if(localStorage.getItem('search')==="false"){
+      setArtists([]);
+      getArtists("64KEffDW9EtZ1y2vBYgq8T");
+      getArtists("04gDigrS5kc9YWfZHwBETP");
+      getArtists("6VuMaDnrHyPL1p4EHjYLi7");
+      getArtists("23fqKkggKUBHNkbKtXEls4");
+      getArtists("1uNFoZAHBGtllmzznpCI3s");
+      getArtists("1vCWHaC5f2uS3yhpwWbIA6");
+      getArtists("2CIMQHirSU0MQqyYHq0eOx");
+    }
     // console.log(artists)
-  }, [getArtists]);
+  }, [getArtists,setArtists]);
 
   return (
     <>
@@ -109,7 +94,7 @@ const Artists = () => {
             title={artist.external_urls.spotify}
             name={artist.name}
             followers={artist.followers.total}
-            img={artist.images[0].url}
+            img={artist.images.length > 0 ? artist.images[0].url : 'https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU'}
           />
         ))}
       </div>
