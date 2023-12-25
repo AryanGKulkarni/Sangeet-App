@@ -46,7 +46,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 const Artists = () => {
   const { artists, setArtists} = useData();
-  const accessToken: string | undefined = "BQDG8Fpx_rc8yzHF-h-Ra0PqA4sAQpg6VQEb6YNhcrfdnKIJSm028cZMCjUgFyUXD6DWv_2LkPH6QS7zPKWN8txWUwvr7p1d1T2L4IyzR4FdDtsyGL0";
+  const accessToken: string | undefined = "BQAclYf3JsAaGJE6TwTs9rsd64V6dZhF5A5sdj_84X65py2eLREBqSoadwmiDEbZV5DuE5U1rktQOIe1b4-iQ-VOvr20UVyiUEqiLvPeXTEFtaU6Zik";
 
   const getArtists = useCallback(async (id: string) => {
     try {

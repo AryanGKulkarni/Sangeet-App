@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useEffect, useCallback } from 'react';
-import { Artist, Album } from '@/context/dataProvider'
+import { Artist, Album, Track } from '@/context/dataProvider'
 import { link as linkStyles } from "@nextui-org/theme";
 
 import { siteConfig } from "@/config/site";
@@ -31,16 +31,12 @@ import {
 } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
-interface SearchResult {
-	id: string;
-	name: string;
-}
 export const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
-	const { artists, setArtists} = useData();
-	const accessToken: string | undefined = "BQDG8Fpx_rc8yzHF-h-Ra0PqA4sAQpg6VQEb6YNhcrfdnKIJSm028cZMCjUgFyUXD6DWv_2LkPH6QS7zPKWN8txWUwvr7p1d1T2L4IyzR4FdDtsyGL0";
+	const { artists, setArtists,tracks, setTracks} = useData();
+	const accessToken: string | undefined = "BQAclYf3JsAaGJE6TwTs9rsd64V6dZhF5A5sdj_84X65py2eLREBqSoadwmiDEbZV5DuE5U1rktQOIe1b4-iQ-VOvr20UVyiUEqiLvPeXTEFtaU6Zik";
 
 	const getType = useCallback(async (type: string|null) => {
 		try {
@@ -54,33 +50,51 @@ export const Navbar = () => {
 		  });
 	
 		  const json = await response.json();
-		  console.log(json.artists.items)
+		//   console.log(json.artists.items)
 		  const appendArtists = (json: { artists: { items: Artist[] } }) => {
 			setArtists(prevArtists => [...prevArtists, ...json.artists.items]);
 		  };		  
+		  const appendTracks = (json: { tracks: { items: Track[] } }) => {
+			setTracks(prevTracks => [...prevTracks, ...json.tracks.items]);
+		  };		  
 		  if(type=="artist"){
-			// clearArtists();
 			appendArtists(json);
-			// console.log(artists);
 		  }
-		  // console.log
+		  else if(type=="track"){
+			appendTracks(json);
+		  }
 		} catch (error) {
 		  console.error("Error fetching data:", error);
 		}
-	  }, [accessToken,setArtists,searchQuery]);
+	  }, [accessToken,setArtists,searchQuery,setTracks]);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 	// Update searchQuery state with the input value
-		localStorage.setItem('search',"true");
+		if(localStorage.getItem('type')=="artist"){
+			localStorage.setItem('search',"true");
+		}
+		else if(localStorage.getItem('type')=="artist"){
+			localStorage.setItem('track_search',"true");
+		}
 		setSearchQuery(event.target.value);
 	};
 	const clearArtists = () => {			
 		setArtists([]);
 		// console.log(artists)
 	};
+	const clearTracks = () => {			
+		setTracks([]);
+		// console.log(artists)
+	};
 
 	const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {		
-		clearArtists();
+		
+		if(localStorage.getItem('type')=="artist"){
+			clearArtists();
+		}
+		else if(localStorage.getItem('type')=="track"){
+			clearTracks();
+		}
 		event.preventDefault(); // Prevent form submission (if applicable)
 		await getType(localStorage.getItem('type')); // Trigger API call when the user submits the search query
 		// console.log(artists);
