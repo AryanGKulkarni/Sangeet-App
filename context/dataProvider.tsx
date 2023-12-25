@@ -163,6 +163,68 @@ export interface Playlist {
   uri: string;
 }
 
+export interface Episode {
+  audio_preview_url: string;
+  description: string;
+  duration_ms: number;
+  explicit: boolean;
+  external_urls: {
+    spotify: string;
+  };
+  href: string;
+  html_description: string;
+  id: string;
+  images: {
+    height: number;
+    url: string;
+    width: number;
+  }[];
+  is_externally_hosted: boolean;
+  is_playable: boolean;
+  language: string;
+  languages: string[];
+  name: string;
+  release_date: string;
+  release_date_precision: string;
+  type: string;
+  uri: string;
+}
+
+export interface Show {
+  available_markets: string[];
+  copyrights: string[];
+  description: string;
+  episodes: {
+    href: string;
+    items: Episode[];
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
+  };
+  explicit: boolean;
+  external_urls: {
+    spotify: string;
+  };
+  href: string;
+  html_description: string;
+  id: string;
+  images: {
+    height: number;
+    url: string;
+    width: number;
+  }[];
+  is_externally_hosted: boolean;
+  languages: string[];
+  media_type: string;
+  name: string;
+  publisher: string;
+  total_episodes: number;
+  type: string;
+  uri: string;
+}
+
 
 // Define the context type
 interface DataArrays {
@@ -174,6 +236,8 @@ interface DataArrays {
     setTracks: React.Dispatch<React.SetStateAction<Track[]>>;
     playlists: Playlist[];
     setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
+    shows: Show[];
+    setShows: React.Dispatch<React.SetStateAction<Show[]>>;
 // Add other arrays and setters as needed
 }
 
@@ -187,6 +251,8 @@ const DataContext = createContext<DataArrays>({
     setTracks: () => {}, 
     playlists: [],
     setPlaylists: () => {}, 
+    shows: [],
+    setShows: () => {}, 
 });
 
 // Create a context provider component
@@ -195,10 +261,11 @@ export const DataProvider: React.FC<DataProviderProps>= ({ children }) => {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [shows, setShows] = useState<Show[]>([]);
   // Initialize other arrays as needed
 
   return (
-    <DataContext.Provider value={{ artists, albums, tracks, playlists, setArtists, setAlbums, setTracks, setPlaylists }}>
+    <DataContext.Provider value={{ artists, albums, tracks, playlists, shows, setArtists, setAlbums, setTracks, setPlaylists, setShows }}>
       {children}
     </DataContext.Provider>
   );

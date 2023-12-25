@@ -8,7 +8,12 @@ interface MCardProps {
 }
 
 export const MCard: React.FC<MCardProps> = (props) => {
-  const categoryPath = `/classes/${props.title}`;
+  const myArray: string[] = ['Artists', 'Albums', 'Tracks', 'Playlists', 'Shows'];
+  let myVariable: string = props.title;
+  if (!myArray.includes(myVariable)) {
+    myVariable='Artists';
+  }
+  const categoryPath = `/classes/${myVariable}`;
   return (
     <Link href={categoryPath}>
         <Card className="py-4">
