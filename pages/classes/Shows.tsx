@@ -39,7 +39,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 const Shows = () => {
   const { shows, setShows} = useData();
-  const accessToken: string | undefined = secretKey.AccessToken;
+  const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
   const getShows = useCallback(async (id: string) => {
     try {

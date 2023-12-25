@@ -40,7 +40,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 const Albums = () => {
   const { albums, setAlbums} = useData();
-  const accessToken: string | undefined = secretKey.AccessToken;
+  const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
   const getAlbums = useCallback(async (id: string) => {
     try {

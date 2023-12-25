@@ -36,7 +36,7 @@ export const Navbar = () => {
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
 	const { artists, setArtists,tracks, setTracks, albums, setAlbums, playlists, setPlaylists, shows, setShows} = useData();
-	const accessToken: string | undefined = secretKey.AccessToken;;
+	const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
 	const getType = useCallback(async (type: string|null) => {
 		try {

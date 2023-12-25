@@ -38,7 +38,7 @@ const ACard: React.FC<TCardProps> = (props)=>{
 
 const Tracks = () => {
   const { tracks, setTracks } = useData();
-  const accessToken: string | undefined = secretKey.AccessToken;
+  const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
   const getTracks = useCallback(async (id: string) => {
     try {

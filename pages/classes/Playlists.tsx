@@ -45,7 +45,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 const Playlists = () => {
   const { playlists, setPlaylists} = useData();
-  const accessToken: string | undefined = secretKey.AccessToken;
+  const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
   const getPlaylists = useCallback(async (id: string) => {
     try {

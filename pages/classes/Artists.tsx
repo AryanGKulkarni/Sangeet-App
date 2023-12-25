@@ -45,7 +45,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 const Artists = () => {
   const { artists, setArtists} = useData();
-  const accessToken: string | undefined = secretKey.AccessToken;
+  const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
   const getArtists = useCallback(async (id: string) => {
     try {
@@ -70,6 +70,7 @@ const Artists = () => {
   useEffect(() => {
     localStorage.setItem('type',"artist");
     localStorage.setItem('search',"false");
+    console.log("hi"+process.env.NEXT_PUBLIC_ACESS_TOKEN);
     if(localStorage.getItem('search')==="false"){
       setArtists([]);
       getArtists("64KEffDW9EtZ1y2vBYgq8T");
