@@ -15,7 +15,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useEffect, useCallback } from 'react';
 import { Artist, Album, Track } from '@/context/dataProvider'
 import { link as linkStyles } from "@nextui-org/theme";
-
+import { secretKey } from '@/secret';
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
@@ -35,8 +35,8 @@ export const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
-	const { artists, setArtists,tracks, setTracks} = useData();
-	const accessToken: string | undefined = "BQAclYf3JsAaGJE6TwTs9rsd64V6dZhF5A5sdj_84X65py2eLREBqSoadwmiDEbZV5DuE5U1rktQOIe1b4-iQ-VOvr20UVyiUEqiLvPeXTEFtaU6Zik";
+	const { artists, setArtists,tracks, setTracks, albums, setAlbums} = useData();
+	const accessToken: string | undefined = secretKey.AccessToken;;
 
 	const getType = useCallback(async (type: string|null) => {
 		try {
@@ -57,16 +57,22 @@ export const Navbar = () => {
 		  const appendTracks = (json: { tracks: { items: Track[] } }) => {
 			setTracks(prevTracks => [...prevTracks, ...json.tracks.items]);
 		  };		  
+		  const appendAlbums = (json: { albums: { items: Album[] } }) => {
+			setAlbums(prevAlbums => [...prevAlbums, ...json.albums.items]);
+		  };		  
 		  if(type=="artist"){
 			appendArtists(json);
 		  }
 		  else if(type=="track"){
 			appendTracks(json);
 		  }
+		  else if(type=="album"){
+			appendAlbums(json);
+		  }
 		} catch (error) {
 		  console.error("Error fetching data:", error);
 		}
-	  }, [accessToken,setArtists,searchQuery,setTracks]);
+	  }, [accessToken,setArtists,searchQuery,setTracks,setAlbums]);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 	// Update searchQuery state with the input value
@@ -76,6 +82,9 @@ export const Navbar = () => {
 		else if(localStorage.getItem('type')=="artist"){
 			localStorage.setItem('track_search',"true");
 		}
+		else if(localStorage.getItem('type')=="album"){
+			localStorage.setItem('album_search',"true");
+		}
 		setSearchQuery(event.target.value);
 	};
 	const clearArtists = () => {			
@@ -84,7 +93,9 @@ export const Navbar = () => {
 	};
 	const clearTracks = () => {			
 		setTracks([]);
-		// console.log(artists)
+	};
+	const clearAlbums = () => {			
+		setAlbums([]);
 	};
 
 	const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {		
@@ -94,6 +105,9 @@ export const Navbar = () => {
 		}
 		else if(localStorage.getItem('type')=="track"){
 			clearTracks();
+		}
+		else if(localStorage.getItem('type')=="album"){
+			clearAlbums();
 		}
 		event.preventDefault(); // Prevent form submission (if applicable)
 		await getType(localStorage.getItem('type')); // Trigger API call when the user submits the search query
@@ -171,15 +185,6 @@ export const Navbar = () => {
 				<NavbarItem className="hidden lg:flex">
 					{searchInput}
 				</NavbarItem>
-				{/* <NavbarItem className="hidden md:flex">
-					<Button
-						type="submit"
-						className="text-sm font-normal text-default-600 bg-default-100"
-						variant="flat"
-					>
-						Search
-					</Button>
-				</NavbarItem> */}
 			</NavbarContent>
 
 			<NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

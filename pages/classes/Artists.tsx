@@ -2,10 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
 import Link from 'next/link';
 import { Navbar } from '@/components/navbar';
-import dotenv from 'dotenv'; 
-dotenv.config(); 
 import { formatNumber } from '@/numberFormatter';
 import { useData } from '@/context/dataProvider';
+import { secretKey } from '@/secret';
 
 
 interface ACardProps {
@@ -46,7 +45,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 const Artists = () => {
   const { artists, setArtists} = useData();
-  const accessToken: string | undefined = "BQAclYf3JsAaGJE6TwTs9rsd64V6dZhF5A5sdj_84X65py2eLREBqSoadwmiDEbZV5DuE5U1rktQOIe1b4-iQ-VOvr20UVyiUEqiLvPeXTEFtaU6Zik";
+  const accessToken: string | undefined = secretKey.AccessToken;
 
   const getArtists = useCallback(async (id: string) => {
     try {

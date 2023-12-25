@@ -7,14 +7,15 @@ import { useData } from '@/context/dataProvider';
 import { secretKey } from '@/secret';
 
 
-interface TCardProps {
+interface ACardProps {
     title: string;
     name: string;
     img: string;
+    date: string;
     // Define other props here if needed
 }
 
-const ACard: React.FC<TCardProps> = (props)=>{
+const ACard: React.FC<ACardProps> = (props)=>{
     // const formattedValue = formatNumber(props.followers);
     return(
         <Link href={props.title}>
@@ -30,21 +31,22 @@ const ACard: React.FC<TCardProps> = (props)=>{
                     width={270}
                     />
                 </CardBody>
+                <span className="ml-2">{props.date}</span>
             </Card>
         </Link>
     )
 }
 
 
-const Tracks = () => {
-  const { tracks, setTracks } = useData();
+const Albums = () => {
+  const { albums, setAlbums} = useData();
   const accessToken: string | undefined = secretKey.AccessToken;
 
-  const getTracks = useCallback(async (id: string) => {
+  const getAlbums = useCallback(async (id: string) => {
     try {
       if (!accessToken) return;
 
-      const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+      const response = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${accessToken}`
@@ -53,36 +55,40 @@ const Tracks = () => {
 
       const json = await response.json();
       // console.log(json)
-      setTracks(prevTracks => [...prevTracks, json]);
+      setAlbums(prevAlbums => [...prevAlbums, json]);
       // console.log
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }, [accessToken,setTracks]);
+  }, [accessToken,setAlbums]);
 
   useEffect(() => {
-    localStorage.setItem('type',"track");
-    localStorage.setItem('track_search',"false");
-    if(localStorage.getItem('track_search')==="false"){
-      setTracks([]);
-      getTracks("24Yi9hE78yPEbZ4kxyoXAI");
-      getTracks("0nrRP2bk19rLc0orkWPQk2");
-      getTracks("7C6793WroNKEOt137WKFY0");
-      getTracks("6habFhsOp2NvshLv26DqMb");
+    localStorage.setItem('type',"album");
+    localStorage.setItem('album_search',"false");
+    if(localStorage.getItem('album_search')==="false"){
+      setAlbums([]);
+      getAlbums("1ne2D0NxoGyZd31gAM4HNd");
+      getAlbums("0h2knr6qpiAq0tV5ri5JMF");
+      getAlbums("1bcvtuHyO79DNAOOhHEkEm");
+      getAlbums("1IKRstg3XuCuLWeCg3oaAW");
+      getAlbums("6Fr2rQkZ383FcMqFyT7yPr");
+      getAlbums("4hlAdqONoJhkjf8u9XMjQr");
+      getAlbums("1Li4rADxSxjT2g4xqUcMYh");
     }
     // console.log(artists)
-  }, [getTracks,setTracks]);
+  }, [getAlbums,setAlbums]);
 
   return (
     <>
       <Navbar/>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "60px", marginLeft: "70px" }}>
-        {tracks.map((track) => (
+        {albums.map((album) => (
           <ACard
-            key={track.id}
-            title={track.external_urls.spotify}
-            name={track.name}
-            img={track.album.images.length > 0 ? track.album.images[0].url : 'https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU'}
+            key={album.id}
+            title={album.external_urls.spotify}
+            name={album.name}
+            date={album.release_date}
+            img={album.images.length > 0 ? album.images[0].url : 'https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU'}
           />
         ))}
       </div>
@@ -90,4 +96,4 @@ const Tracks = () => {
   );
 }
 
-export default Tracks
+export default Albums
