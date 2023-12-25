@@ -4,23 +4,24 @@ import Link from 'next/link';
 import { Navbar } from '@/components/navbar';
 import dotenv from 'dotenv'; 
 dotenv.config(); 
+import { formatNumber } from '@/numberFormatter';
 
 
 interface ACardProps {
     title: string;
     name: string;
     img: string;
+    followers: number;
     // Define other props here if needed
 }
 
 const ACard: React.FC<ACardProps> = (props)=>{
+    const formattedValue = formatNumber(props.followers);
     return(
         <Link href={props.title}>
             <Card className="py-4">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                    <p className="text-tiny uppercase font-bold">{props.name}</p>
-                    <small className="text-default-500">12 Tracks</small>
-                    <h4 className="font-bold text-large">Frontend Radio</h4>
+                    <h4 className="font-bold text-large">{props.name}</h4>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2">
                     <Image
@@ -30,6 +31,12 @@ const ACard: React.FC<ACardProps> = (props)=>{
                     width={270}
                     />
                 </CardBody>
+                <div className="flex items-center text-gray-600 hover:text-gray-800">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="ml-2">{formattedValue}</span>
+                </div>
             </Card>
         </Link>
     )
@@ -59,7 +66,7 @@ interface Artist {
 
 const Artists = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
-  const accessToken: string | undefined = "BQDnT3kUOsQsHs-hj71zdlf2BE4C8ZRfgk6Rpfi1a0CJuEqPzhPfrHL31GaqFZWaKK1ZX6NMApf3Yxsei0aDCsaAM2QAdIy_3NXVxQaLY91z7ST6cXM";
+  const accessToken: string | undefined = "BQA9vVLReEMV5n0OE9KRNX08ZH7KLMcMlYZTbJzzxzfGMHyxvH4RJC1AEaFvJ9ihHCPEbJ2H35QxJt5tMAbxHYXevrgWXiH65PGMJAg2MhooOFWqvR4";
 
   const getArtists = useCallback(async (id: string) => {
     try {
@@ -85,7 +92,7 @@ const Artists = () => {
     getArtists("1vCWHaC5f2uS3yhpwWbIA6");
     getArtists("04gDigrS5kc9YWfZHwBETP");
     getArtists("6VuMaDnrHyPL1p4EHjYLi7");
-    getArtists("3Nrfpe0tUJi4K4DXYWgMUX");
+    getArtists("23fqKkggKUBHNkbKtXEls4");
     getArtists("1uNFoZAHBGtllmzznpCI3s");
     getArtists("1vCWHaC5f2uS3yhpwWbIA6");
     getArtists("2CIMQHirSU0MQqyYHq0eOx");
@@ -101,6 +108,7 @@ const Artists = () => {
             key={artist.id}
             title={artist.external_urls.spotify}
             name={artist.name}
+            followers={artist.followers.total}
             img={artist.images[0].url}
           />
         ))}
