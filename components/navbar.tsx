@@ -19,7 +19,7 @@ import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { useData } from '@/context/dataProvider';
-
+import { useRouter } from 'next/router';
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
 	TwitterIcon,
@@ -33,7 +33,7 @@ import { Logo } from "@/components/icons";
 export const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
-
+	  const router = useRouter();
 	const { artists, setArtists,tracks, setTracks, albums, setAlbums, playlists, setPlaylists, shows, setShows, accessToken, setAccessToken} = useData();
 	// const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
@@ -90,7 +90,7 @@ export const Navbar = () => {
 		if(localStorage.getItem('type')=="artist"){
 			localStorage.setItem('search',"true");
 		}
-		else if(localStorage.getItem('type')=="artist"){
+		else if(localStorage.getItem('type')=="track"){
 			localStorage.setItem('track_search',"true");
 		}
 		else if(localStorage.getItem('type')=="album"){
@@ -140,6 +140,10 @@ export const Navbar = () => {
 		}
 		event.preventDefault(); // Prevent form submission (if applicable)
 		await getType(localStorage.getItem('type')); // Trigger API call when the user submits the search query
+		if(localStorage.getItem('type')=="track"){
+			// console.log(localStorage.getItem('track_search'));
+			router.push('/classes/Tracks');
+		}
 		// console.log(artists);
 	};
 

@@ -6,7 +6,7 @@ export const Genre = () => {
   
   useEffect(() => {
     localStorage.setItem('type',"track");
-    // console.log(Playlists)
+    localStorage.setItem('track_search',"false");
   }, []);
 
   return (

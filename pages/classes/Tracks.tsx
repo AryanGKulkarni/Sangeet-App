@@ -106,8 +106,9 @@ const Tracks = () => {
     }, 3600000); // 3600000 milliseconds = 1 hour 
 
     localStorage.setItem('type',"track");
-    localStorage.setItem('track_search',"false");
-    if(localStorage.getItem('track_search')==="false"){
+    // localStorage.setItem('track_search',"false");
+    if(localStorage.getItem('track_search')=="false"){
+      // console.log(localStorage.getItem('track_search'));
       setTracks([]);
       getTracks("24Yi9hE78yPEbZ4kxyoXAI");
       getTracks("0nrRP2bk19rLc0orkWPQk2");
