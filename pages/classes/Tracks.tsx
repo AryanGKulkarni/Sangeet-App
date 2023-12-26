@@ -36,8 +36,8 @@ const ACard: React.FC<TCardProps> = (props)=>{
 
 
 const Tracks = () => {
-  const { tracks, setTracks } = useData();
-  const [accessToken,setAccessToken]= useState("");
+  const { tracks, setTracks,accessToken, setAccessToken } = useData();
+  // const [accessToken,setAccessToken]= useState("");
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID ? process.env.NEXT_PUBLIC_CLIENT_ID : 'default_client_id';
   const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET ? process.env.NEXT_PUBLIC_CLIENT_SECRET : 'default_client_id';
 

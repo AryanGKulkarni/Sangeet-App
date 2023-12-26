@@ -238,6 +238,8 @@ interface DataArrays {
     setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
     shows: Show[];
     setShows: React.Dispatch<React.SetStateAction<Show[]>>;
+    accessToken: string;
+    setAccessToken: React.Dispatch<React.SetStateAction<string>>;
 // Add other arrays and setters as needed
 }
 
@@ -253,6 +255,8 @@ const DataContext = createContext<DataArrays>({
     setPlaylists: () => {}, 
     shows: [],
     setShows: () => {}, 
+    accessToken: "",
+    setAccessToken: () => {},
 });
 
 // Create a context provider component
@@ -262,10 +266,11 @@ export const DataProvider: React.FC<DataProviderProps>= ({ children }) => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [shows, setShows] = useState<Show[]>([]);
+  const [accessToken, setAccessToken] = useState<string>("");
   // Initialize other arrays as needed
 
   return (
-    <DataContext.Provider value={{ artists, albums, tracks, playlists, shows, setArtists, setAlbums, setTracks, setPlaylists, setShows }}>
+    <DataContext.Provider value={{ artists, albums, tracks, playlists, shows, setArtists, setAlbums, setTracks, setPlaylists, setShows, accessToken, setAccessToken }}>
       {children}
     </DataContext.Provider>
   );

@@ -38,8 +38,8 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 
 const Albums = () => {
-  const { albums, setAlbums} = useData();
-  const [accessToken,setAccessToken]= useState("");
+  const { albums, setAlbums,accessToken, setAccessToken} = useData();
+  // const [accessToken,setAccessToken]= useState("");
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID ? process.env.NEXT_PUBLIC_CLIENT_ID : 'default_client_id';
   const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET ? process.env.NEXT_PUBLIC_CLIENT_SECRET : 'default_client_id';
 
