@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Navbar } from '@/components/navbar';
 import { formatNumber } from '@/numberFormatter';
 import { useData } from '@/context/dataProvider';
-import { secretKey } from '@/secret';
 
 
 interface TCardProps {

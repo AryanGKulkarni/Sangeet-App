@@ -15,7 +15,6 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useEffect, useCallback } from 'react';
 import { Artist, Album, Track, Playlist, Show } from '@/context/dataProvider'
 import { link as linkStyles } from "@nextui-org/theme";
-import { secretKey } from '@/secret';
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";

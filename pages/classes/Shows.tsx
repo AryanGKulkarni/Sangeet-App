@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { Navbar } from '@/components/navbar';
 import { formatNumber } from '@/numberFormatter';
 import { useData } from '@/context/dataProvider';
-import { secretKey } from '@/secret';
-
 
 interface ACardProps {
     title: string;
@@ -68,7 +66,7 @@ const Shows = () => {
         const data = await response.json();
         // console.log(clientId);
         // Handle the response data
-        localStorage.setItem('accessToken', data.access_token);
+        // localStorage.setItem('accessToken', data.access_token);
         setAccessToken(data.access_token);
       } catch (error) {
         // Handle errors
