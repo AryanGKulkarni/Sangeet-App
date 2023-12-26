@@ -87,7 +87,7 @@ const Albums = () => {
       const response = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${localStorage.getItem('acessToken')}`
+          "Authorization": `Bearer ${accessToken}`
         },
       });
 
