@@ -71,7 +71,6 @@ const Tracks = () => {
       } catch (error) {
         // Handle errors
         console.error('There was an error with the request:', error);
-        console.log(clientId);
       }
       setTokenFetched(true);
     }
