@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Sangeet App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Spotify aggregator app built on Next.js, designed to explore various Spotify categories such as artists, songs, albums, playlists, shows, and more.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+The app allows users to search for their favorite artists, songs, albums, or playlists. It leverages the Spotify API to fetch data and display information about different categories available on Spotify.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Search for artists, songs, albums, playlists, and shows.
+- Explore details about specific artists, albums, or playlists.
+- Navigate through different categories available on Spotify.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Framework and Languages Used
 
-### `npm test`
+- Framework: Next.js + NextUI
+- Languages: HTML, CSS, TypeScript
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## List of APIs Used
 
-### `npm run build`
+### Search
+GET https://api.spotify.com/v1/search?q={query}&type={type}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Artist
+GET https://api.spotify.com/v1/artists?ids={id}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Album
+GET https://api.spotify.com/v1/albums?ids={id}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Playlist
+GET https://api.spotify.com/v1/playlists?ids={id}
 
-### `npm run eject`
+### Show
+GET https://api.spotify.com/v1/shows?ids={id}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Access Token
+POST https://accounts.spotify.com/api/token
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## How to Use
 
-## Learn More
+1. Clone the repository.
+2. Install dependencies using `npm install` or `yarn install`.
+3. Run the app using `npm run dev` or `yarn dev`.
+4. Open the app in your browser and explore different Spotify categories.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Feel free to contribute or provide feedback. Happy exploring Spotify!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
