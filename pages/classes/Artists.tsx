@@ -121,6 +121,11 @@ const Artists = () => {
       getArtists("1uNFoZAHBGtllmzznpCI3s");
       getArtists("1vCWHaC5f2uS3yhpwWbIA6");
       getArtists("2CIMQHirSU0MQqyYHq0eOx");
+      getArtists("6KImCVD70vtIoJWnq6nGn3");
+      getArtists("2urF8dgLVfDjunO0pcHUEe");
+      getArtists("4AK6F7OLvEQ5QYCBNiQWHq");
+      getArtists("2bdcBjvuI9worc472GbeU0");
+      getArtists("0Riv2KnFcLZA3JSVryRg4y");
     }
     return () => {
       clearInterval(intervalId); // Clear interval on component unmount

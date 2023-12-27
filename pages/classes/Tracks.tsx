@@ -114,6 +114,14 @@ const Tracks = () => {
       getTracks("0nrRP2bk19rLc0orkWPQk2");
       getTracks("7C6793WroNKEOt137WKFY0");
       getTracks("6habFhsOp2NvshLv26DqMb");
+      getTracks("7oUHzZKNKUTrlU7DYxhQ7v");
+      getTracks("7qiZfU4dY1lWllzX7mPBI3");
+      getTracks("2K87XMYnUMqLcX3zvtAF4G");
+      getTracks("7JJmb5XwzOO8jgpou264Ml");
+      getTracks("0tBbt8CrmxbjRP0pueQkyU");
+      getTracks("0lYBSQXN6rCTvUZvg9S0lU");
+      getTracks("7x5xYW5W42OGPAdHUyyguy");
+      getTracks("0IqCoZ168iRc9LqfrYgpZy");
     }
     // console.log(artists)
   }, [getTracks,setTracks,getToken]);

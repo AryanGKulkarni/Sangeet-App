@@ -111,13 +111,18 @@ const Albums = () => {
     localStorage.setItem('album_search',"false");
     if(localStorage.getItem('album_search')==="false"){
       setAlbums([]);
+      getAlbums("4JPguzRps3kuWDD5GS6oXr");
       getAlbums("1ne2D0NxoGyZd31gAM4HNd");
+      getAlbums("4QLAtpLNUsHEYrcHXmMIZZ");
+      getAlbums("6ijGiBcBfUwkoyHn5VUHU2");
       getAlbums("0h2knr6qpiAq0tV5ri5JMF");
-      getAlbums("1bcvtuHyO79DNAOOhHEkEm");
-      getAlbums("1IKRstg3XuCuLWeCg3oaAW");
-      getAlbums("6Fr2rQkZ383FcMqFyT7yPr");
-      getAlbums("4hlAdqONoJhkjf8u9XMjQr");
-      getAlbums("1Li4rADxSxjT2g4xqUcMYh");
+      getAlbums("2SWwDDBZG7UfECbPWQ2t4h");
+      getAlbums("0VaHnwzDug4AcDkejYDUl5");
+      getAlbums("5lKlFlReHOLShQKyRv6AL9");
+      getAlbums("1Q9SnHWPNEjVM0LrBFvJ1q");
+      getAlbums("0mZIUXje90JtHxPNzWsJNR");
+      getAlbums("2ZaX1FdZCwchXl1QZiD4O4");
+      getAlbums("2oU2YsoVW3KG0jIlDXWIkx");
     }
     // console.log(artists)
   }, [getAlbums,setAlbums,getToken]);
