@@ -15,7 +15,7 @@ interface ACardProps {
 
 const ACard: React.FC<ACardProps> = (props)=>{
     return(
-        <Link href={props.title}>
+        <a href={props.title} target="_blank" rel="noreferrer">
             <Card className="py-4">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                     <h4 className="font-bold text-large">{props.name}</h4>
@@ -30,7 +30,7 @@ const ACard: React.FC<ACardProps> = (props)=>{
                 </CardBody>
                 <span className="ml-2">{props.publisher}</span>
             </Card>
-        </Link>
+        </a>
     )
 }
 

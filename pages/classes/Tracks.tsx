@@ -16,7 +16,7 @@ interface TCardProps {
 const ACard: React.FC<TCardProps> = (props)=>{
     // const formattedValue = formatNumber(props.followers);
     return(
-        <Link href={props.title}>
+        <a href={props.title} target="_blank" rel="noreferrer">
             <Card className="py-4">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                     <h4 className="font-bold text-large">{props.name}</h4>
@@ -30,7 +30,7 @@ const ACard: React.FC<TCardProps> = (props)=>{
                     />
                 </CardBody>
             </Card>
-        </Link>
+        </a>
     )
 }
 
