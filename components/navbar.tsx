@@ -32,6 +32,8 @@ import {
 import { Logo } from "@/components/icons";
 export const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
+	const type = typeof window !== 'undefined' ? 
+    (localStorage.getItem('type') ? localStorage.getItem('type') : 'track') : 'track';
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 	  const router = useRouter();
 	const { artists, setArtists,tracks, setTracks, albums, setAlbums, playlists, setPlaylists, shows, setShows, accessToken, setAccessToken} = useData();
@@ -156,7 +158,7 @@ export const Navbar = () => {
 				input: 'text-sm',
 			}}
 			labelPlacement="outside"
-			placeholder="Search..."
+			placeholder={`Search ${type}...`}
 			startContent={
 				<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
 			}
