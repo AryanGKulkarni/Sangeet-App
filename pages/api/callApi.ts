@@ -25,11 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
   
       data1 = await response.json();
-      // console.log(clientId);
-      // Handle the response data
-      // localStorage.setItem('accessToken', data.access_token);
     } catch (error) {
-      // Handle errors
       console.error('There was an error with the request:', error);
     }
     if(data1.access_token){
