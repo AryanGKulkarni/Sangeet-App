@@ -36,56 +36,12 @@ const ACard: React.FC<ACardProps> = (props)=>{
 
 
 const Shows = () => {
-  const { shows, setShows,accessToken, setAccessToken} = useData();
-  // const [accessToken,setAccessToken]= useState("");
-  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID ? process.env.NEXT_PUBLIC_CLIENT_ID : 'default_client_id';
-  const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET ? process.env.NEXT_PUBLIC_CLIENT_SECRET : 'default_client_id';
-
-  const [tokenFetched, setTokenFetched] = useState(false);
-
-  const getToken = useCallback(async () => {
-    const formData = new URLSearchParams();
-    formData.append('grant_type', 'client_credentials');
-    formData.append('client_id', clientId);
-    formData.append('client_secret', clientSecret);
-
-    if(!tokenFetched){
-      try {
-        const response = await fetch('https://accounts.spotify.com/api/token', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        });
-  
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-  
-        const data = await response.json();
-        // console.log(clientId);
-        // Handle the response data
-        // localStorage.setItem('accessToken', data.access_token);
-        setAccessToken(data.access_token);
-      } catch (error) {
-        // Handle errors
-        console.error('There was an error with the request:', error);
-      }
-      setTokenFetched(true);
-    }
-  }, [clientId, clientSecret, setAccessToken,tokenFetched]);
+  const { shows, setShows} = useData();
 
   const getShows = useCallback(async (id: string) => {
     try {
-      if (!accessToken) return;
 
-      const response = await fetch(`https://api.spotify.com/v1/shows/${id}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`
-        },
-      });
+      const response = await fetch(`/api/callApi?id=${id}&type=shows`);
 
       const json = await response.json();
       // console.log(json)
@@ -94,17 +50,9 @@ const Shows = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }, [accessToken,setShows]);
+  }, [setShows]);
 
   useEffect(() => {
-
-    getToken(); // Call getToken initially
-
-    const intervalId = setInterval(() => {
-      setTokenFetched(false);
-      getToken(); // Call getToken every one hour (3600 seconds)
-    }, 3600000); // 3600000 milliseconds = 1 hour 
-
     localStorage.setItem('type',"show");
     localStorage.setItem('show_search',"false");
     if(localStorage.getItem('show_search')==="false"){
@@ -118,7 +66,7 @@ const Shows = () => {
       getShows("6l4XfkTRejrzZX4EdDYHVc");
     }
     // console.log(Shows)
-  }, [getShows,setShows,getToken]);
+  }, [getShows,setShows]);
 
   return (
     <>

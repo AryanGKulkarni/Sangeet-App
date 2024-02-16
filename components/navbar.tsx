@@ -36,19 +36,13 @@ export const Navbar = () => {
     (localStorage.getItem('type') ? localStorage.getItem('type') : 'track') : 'track';
   	// const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 	  const router = useRouter();
-	const { artists, setArtists,tracks, setTracks, albums, setAlbums, playlists, setPlaylists, shows, setShows, accessToken, setAccessToken} = useData();
+	const { artists, setArtists,tracks, setTracks, albums, setAlbums, playlists, setPlaylists, shows, setShows} = useData();
 	// const accessToken: string | undefined = process.env.NEXT_PUBLIC_ACESS_TOKEN;
 
 	const getType = useCallback(async (type: string|null) => {
 		try {
-		  if (!accessToken) return;
 	
-		  const response = await fetch(`https://api.spotify.com/v1/search?q=${searchQuery}&type=${type}`, {
-			method: "GET",
-			headers: {
-			  "Authorization": `Bearer ${accessToken}`
-			},
-		  });
+		  const response = await fetch(`/api/searchApi?query=${searchQuery}&type=${type}`);
 	
 		  const json = await response.json();
 		//   console.log(json.artists.items)
@@ -85,7 +79,7 @@ export const Navbar = () => {
 		} catch (error) {
 		  console.error("Error fetching data:", error);
 		}
-	  }, [accessToken,setArtists,searchQuery,setTracks,setAlbums,setPlaylists,setShows]);
+	  }, [setArtists,searchQuery,setTracks,setAlbums,setPlaylists,setShows]);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 	// Update searchQuery state with the input value
